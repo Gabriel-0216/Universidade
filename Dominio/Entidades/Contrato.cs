@@ -6,6 +6,7 @@ namespace Dominio.Entidades
         public Estudante? Estudante { get; private set; }
         public IList<Parcela>? Parcelas { get; private set; }
         public bool Ativo { get; private set; }
+        public bool Quitado { get; set; }
         
         public bool GerarContrato(Curso curso, Estudante estudante, int quantidadeParcelas)
         {
@@ -41,8 +42,6 @@ namespace Dominio.Entidades
             Ativo = true;
             return IsValid;
         }
-
-
         private IList<Parcela> GerarParcelas(decimal valorTotal, int quantidadeParcelas)
         {
             var listaParcelas = new List<Parcela>();
@@ -54,7 +53,33 @@ namespace Dominio.Entidades
             }
             return listaParcelas;
         }
+        public decimal ValorTotalParcelas()
+        {
+            decimal valorTotal = 0M;
+            if (Parcelas is null) return 0M;
 
+            foreach(var item in Parcelas)
+                if (item is not null) valorTotal += item.Valor;
 
+            return valorTotal;
+        }
+        public bool ContratoQuitado()
+        {
+            if (Parcelas is null) return false;
+            foreach (var item in Parcelas)
+                if (item.Pago is false) return false;
+
+            return true;
+        }
+        public IList<Parcela> SelecionarParcelasAberto()
+        {
+            if (Parcelas is null) return new List<Parcela>();
+            return Parcelas.Where(p => p.Pago == false).ToList();
+        }
+        public IList<Parcela> SelecionarParcelasPagas()
+        {
+            if (Parcelas is null) return new List<Parcela>();
+            return Parcelas.Where(p => p.Pago == true).ToList();
+        }
     }
 }

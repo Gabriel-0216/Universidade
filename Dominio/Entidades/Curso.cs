@@ -40,9 +40,7 @@ namespace Dominio.Entidades
         public void RemoveEstudanteCurso(Estudante estudante)
         {
             if(estudante.IsValid && this.IsValid)
-            {
                 if (Estudantes is not null) Estudantes.Remove(estudante);
-            }
         }
     }
 }
