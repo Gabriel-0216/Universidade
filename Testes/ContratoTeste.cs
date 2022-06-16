@@ -34,6 +34,24 @@ namespace Testes
             Assert.False(contrato.IsValid && (contrato.Parcelas is null || contrato.Parcelas.Count < 1));
         }
         [Fact]
+        public void CriaContratoCursoInvalido()
+        {
+            var curso = new Curso("", "", 32, 200);
+            var estudante = EstudanteValido();
+            var contrato = new Contrato();
+            contrato.GerarContrato(curso, estudante, 20);
+            Assert.False(contrato.IsValid && curso.IsValid);
+        }
+        [Fact]
+        public void CriaContratoEstudanteInvalido()
+        {
+            var curso = CursoValido();
+            var estudante = new Estudante("", "", DateTime.Now);
+            var contrato = new Contrato();
+            contrato.GerarContrato(curso, estudante, 20);
+            Assert.False(contrato.IsValid && estudante.IsValid);
+        }
+        [Fact]
         public void ContratoValidoSeisParcelas()
         {
             // Given
@@ -58,5 +76,23 @@ namespace Testes
             Assert.True(contrato.IsValid && (contrato.Parcelas is not null && contrato.Parcelas.Count == 66));
        
         }
+        [Fact]
+        public void CriaContratoParcelasNegativas()
+        {
+            var curso = CursoValido();
+            var estudante = EstudanteValido();
+            var contrato = new Contrato();
+            contrato.GerarContrato(curso, estudante, -1);
+            Assert.False(contrato.IsValid);
+        }
+        [Fact]
+        public void ContratoParcelaIgualContrato()
+        {
+            var curso = CursoValido();
+            var estudante = EstudanteValido();
+            var contrato = new Contrato();
+            contrato.GerarContrato(curso, estudante, 10);
+            Assert.True(contrato.IsValid && contrato.Parcelas is not null && contrato.Parcelas[0].Contrato == contrato);
+        } 
     }
 }
