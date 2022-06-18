@@ -8,6 +8,10 @@ namespace Dominio.Entidades
         public IList<Parcela>? Parcelas { get; set; }
         public string MotivoLiberacao { get; set; } = string.Empty;
 
+        public LiberacaoPagamento()
+        {
+            
+        }
         public LiberacaoPagamento(string usuarioLiberacao, string motivoLiberacao, IList<Parcela> parcelas)
         {
             if(parcelas is null)

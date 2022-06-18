@@ -12,12 +12,18 @@ namespace Dominio.Entidades
         public IList<Endereco>? Enderecos { get; private set; }
         public IList<Telefone>? Telefones { get; private set; }
         public IList<Curso>? Cursos { get; private set; }
+        public IList<Contrato>? Contratos { get; private set; }
 
         private void Validacoes(string nome, string sobrenome, DateTime dataNascimento)
         {
             if (string.IsNullOrEmpty(nome)) AddNotification("Nome", MensagensValidacoes.PropriedadeObrigatoria);
             if (string.IsNullOrEmpty(sobrenome)) AddNotification("Sobrenome", MensagensValidacoes.PropriedadeObrigatoria);
             if (string.IsNullOrEmpty(dataNascimento.ToString(CultureInfo.InvariantCulture))) AddNotification("Data Nascimento", MensagensValidacoes.PropriedadeObrigatoria);
+        }
+
+        public Estudante()
+        {
+            
         }
         public Estudante(string nome, string sobrenome, DateTime dataNascimento)
         {

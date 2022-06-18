@@ -8,8 +8,13 @@ namespace Dominio.Entidades
         public string Descricao { get; private set; } = string.Empty;
         public int DuracaoMeses { get; private set; }
         public decimal ValorTotal { get; private set; }
-        public IList<Estudante>? Estudantes { get; set; }
+        public IList<Estudante>? Estudantes { get; private set; }
+        public IList<Contrato> Contratos { get; private set; }
 
+        public Curso()
+        {
+            
+        }
         public Curso(string nome, string descricao, int duracaoMeses, decimal valorTotal)
         {
             Validacoes(nome, descricao, duracaoMeses, valorTotal);

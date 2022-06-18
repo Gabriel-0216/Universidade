@@ -8,6 +8,12 @@ namespace Dominio.Entidades
         public DateTime DataVencimento { get; private set; }
         public Pagamento? Pagamento { get; private set; }
         public bool Pago { get { return Pagamento is not null; } }
+        public LiberacaoPagamento? LiberacaoPagamento { get; set; }
+
+        public Parcela()
+        {
+            
+        }
         public Parcela(int numero, Contrato contrato, decimal valor, DateTime dataVencimento)
         {
             Validacoes(contrato, valor);

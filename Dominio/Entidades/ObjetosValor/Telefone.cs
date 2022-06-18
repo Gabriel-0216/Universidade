@@ -6,6 +6,7 @@ namespace Dominio.Entidades.ObjetosValor
     {
         public int Ddd { get; set; }
         public string Numero { get; set; } = string.Empty;
+        public Estudante? Estudante { get; set; }
         public Telefone(int ddd, string numero)
         {
             Validacoes(ddd, numero);

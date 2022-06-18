@@ -5,9 +5,10 @@ namespace Dominio.Entidades.ObjetosValor
     {
         public string Cep { get; set; } = string.Empty;
         public string Rua { get; set; } = string.Empty;
-        public string Cidade { get; set; } = string.Empty;
-        public string Estado { get; set; } = string.Empty;
-        public string Numero { get; set; } = string.Empty;
+        public string? Cidade { get; set; } = string.Empty;
+        public string? Estado { get; set; } = string.Empty;
+        public string? Numero { get; set; } = string.Empty;
+        public Estudante? Estudante { get; set; }
         public Endereco(string cep, string rua,
             string cidade, string estado, string numero)
         {
