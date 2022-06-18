@@ -13,14 +13,12 @@ namespace Dominio.Entidades
         public Curso(string nome, string descricao, int duracaoMeses, decimal valorTotal)
         {
             Validacoes(nome, descricao, duracaoMeses, valorTotal);
-            if(Notifications.Count == 0)
-            {
-                Nome = nome;
-                Descricao = descricao;
-                DuracaoMeses = duracaoMeses;
-                ValorTotal = valorTotal;
-                Estudantes = new List<Estudante>();
-            }
+            if (Notifications.Count != 0) return;
+            Nome = nome;
+            Descricao = descricao;
+            DuracaoMeses = duracaoMeses;
+            ValorTotal = valorTotal;
+            Estudantes = new List<Estudante>();
         }
         private void Validacoes(string nome, string descricao, int duracaoMeses, decimal valorTotal)
         {
@@ -31,16 +29,14 @@ namespace Dominio.Entidades
         }
         public void AdicionaEstudanteCurso(Estudante estudante)
         {
-            if(estudante.IsValid && this.IsValid)
-            {
-                if (Estudantes is null) Estudantes = new List<Estudante>();
-                Estudantes.Add(estudante);
-            }
+            if (!estudante.IsValid || !this.IsValid) return;
+            Estudantes ??= new List<Estudante>();
+            Estudantes.Add(estudante);
         }
         public void RemoveEstudanteCurso(Estudante estudante)
         {
-            if(estudante.IsValid && this.IsValid)
-                if (Estudantes is not null) Estudantes.Remove(estudante);
+            if (!estudante.IsValid || !this.IsValid) return;
+            if (Estudantes is not null) Estudantes.Remove(estudante);
         }
     }
 }

@@ -5,17 +5,17 @@ namespace Dominio.Entidades
         public int Numero { get; private set; } 
         public Contrato? Contrato { get; private set; }
         public decimal Valor {get; private set; }
+        public DateTime DataVencimento { get; private set; }
         public Pagamento? Pagamento { get; private set; }
         public bool Pago { get { return Pagamento is not null; } }
-        public Parcela(int numero, Contrato contrato, decimal valor)
+        public Parcela(int numero, Contrato contrato, decimal valor, DateTime dataVencimento)
         {
             Validacoes(contrato, valor);
-            if(IsValid)
-            {
-                Contrato = contrato;
-                Valor = valor;
-                Numero = numero;
-            }
+            if (!IsValid) return;
+            Contrato = contrato;
+            Valor = valor;
+            Numero = numero;
+            DataVencimento = dataVencimento;
         }
         private void Validacoes(Contrato contrato, decimal valor)
         {
