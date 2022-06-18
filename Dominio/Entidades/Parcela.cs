@@ -7,7 +7,17 @@ namespace Dominio.Entidades
         public decimal Valor {get; private set; }
         public DateTime DataVencimento { get; private set; }
         public Pagamento? Pagamento { get; private set; }
-        public bool Pago { get { return Pagamento is not null; } }
+        public bool Pago
+        {
+            get { return Pagamento is not null; }
+            set { Pago = value; }
+        }
+        //public LiberacaoPagamento? LiberacaoPagamento { get; set; }
+
+        public Parcela()
+        {
+            
+        }
         public Parcela(int numero, Contrato contrato, decimal valor, DateTime dataVencimento)
         {
             Validacoes(contrato, valor);

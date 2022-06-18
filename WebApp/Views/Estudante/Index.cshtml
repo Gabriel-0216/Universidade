@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApp.ViewModels.EstudanteViewModel.EstudanteVm>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Cadastrar">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sobrenome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sobrenome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataNascimento)
+            </td>
+            <td>
+                <button type="button" data-id="@item.Id" onclick="verificarRemover(@item.Id)" id="botaoDeletar" class="btn btn-danger">Deletar</button>
+                @Html.ActionLink("Editar", "Editar", new { id=item.Id}) |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script src="js/Estudantes/Index.js"></script>
+}

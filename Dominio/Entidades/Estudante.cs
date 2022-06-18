@@ -12,12 +12,18 @@ namespace Dominio.Entidades
         public IList<Endereco>? Enderecos { get; private set; }
         public IList<Telefone>? Telefones { get; private set; }
         public IList<Curso>? Cursos { get; private set; }
+        public IList<Contrato>? Contratos { get; private set; }
 
         private void Validacoes(string nome, string sobrenome, DateTime dataNascimento)
         {
             if (string.IsNullOrEmpty(nome)) AddNotification("Nome", MensagensValidacoes.PropriedadeObrigatoria);
             if (string.IsNullOrEmpty(sobrenome)) AddNotification("Sobrenome", MensagensValidacoes.PropriedadeObrigatoria);
             if (string.IsNullOrEmpty(dataNascimento.ToString(CultureInfo.InvariantCulture))) AddNotification("Data Nascimento", MensagensValidacoes.PropriedadeObrigatoria);
+        }
+
+        public Estudante()
+        {
+            
         }
         public Estudante(string nome, string sobrenome, DateTime dataNascimento)
         {
@@ -36,9 +42,8 @@ namespace Dominio.Entidades
         }
         public void RemoveEndereco(int enderecoId)
         {
-            if (Enderecos is null) return;
-            var endereco = Enderecos.FirstOrDefault(p => p.Id == enderecoId);
-            if (endereco is not null) Enderecos.Remove(endereco);
+            var endereco = Enderecos?.FirstOrDefault(p => p.Id == enderecoId);
+            if (endereco != null) Enderecos.Remove(endereco);
         }
         public void AdicionaTelefone(Telefone telefone)
         {
