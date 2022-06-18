@@ -18,5 +18,18 @@ public class EstudanteVm
     public DateTime DataNascimento { get; set; }
 
     public IList<TelefoneVm> Telefones { get; set; } = new List<TelefoneVm>();
+
+    public EstudanteVm()
+    {
+        
+    }
+
+    public EstudanteVm(int id, string nome, string sobrenome, DateTime dataNascimento)
+    {
+        Id = id;
+        Nome = nome;
+        Sobrenome = sobrenome;
+        DataNascimento = dataNascimento;
+    }
     
 }

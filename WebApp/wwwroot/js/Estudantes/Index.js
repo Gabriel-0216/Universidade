@@ -5,7 +5,6 @@
 });
 
 function verificarRemover(estudanteId){
-    console.log(estudanteId);
     Swal.fire({
         title: 'Tem certeza que deseja remover?',
         text: "Não será possível recuperar esse registro",
@@ -25,11 +24,14 @@ function verificarRemover(estudanteId){
                         'O registro foi removido.',
                         'success'
                     )
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 5000);
                 }
                 else{
                     Swal.fire(
                         'Ocorreu um erro',
-                        'O registro não foi removido.',
+                        `O registro não foi removido: ${result.erros}`,
                         'error'
                     )
                 }

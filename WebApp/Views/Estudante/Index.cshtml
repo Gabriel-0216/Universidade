@@ -44,6 +44,7 @@
             </td>
             <td>
                 <button type="button" data-id="@item.Id" onclick="verificarRemover(@item.Id)" id="botaoDeletar" class="btn btn-danger">Deletar</button>
+                @Html.ActionLink("Editar", "Editar", new { id=item.Id}) |
             </td>
         </tr>
 }

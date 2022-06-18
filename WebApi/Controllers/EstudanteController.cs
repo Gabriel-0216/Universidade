@@ -1,4 +1,5 @@
 using Application.Commands.EstudanteCommands.CadastrarEstudante;
+using Application.Commands.EstudanteCommands.DeletarEstudante;
 using Application.Queries.EstudanteQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,22 @@ namespace WebApi.Controllers
             var consulta = new SelecionarEstudantesQuery(incluirTelefone, incluirEndereco, skip, take);
             var resposta = await _mediator.Send(consulta);
             return resposta.Count > 0 ? Ok(resposta) : NoContent();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Remover([FromHeader] int id)
+        {
+            var command = new DeletarEstudanteCommand(id);
+            var resultado = await _mediator.Send(command);
+            return resultado.OperacaoSucesso() ? Ok(resultado) : BadRequest(resultado);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SelecionarEstudantePorId([FromHeader] int id)
+        {
+            var consulta = new SelecionarEstudantePorIdQuery(id, true, true);
+            var resultado = await _mediator.Send(consulta);
+            return resultado.Sucesso ? Ok(resultado) : NoContent();
         }
     }
 }

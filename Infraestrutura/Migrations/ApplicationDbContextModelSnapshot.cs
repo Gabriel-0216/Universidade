@@ -575,7 +575,8 @@ namespace Infraestrutura.Migrations
                 {
                     b.HasOne("Dominio.Entidades.Estudante", "Estudante")
                         .WithMany("Enderecos")
-                        .HasForeignKey("EstudanteId");
+                        .HasForeignKey("EstudanteId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Estudante");
                 });
@@ -584,7 +585,8 @@ namespace Infraestrutura.Migrations
                 {
                     b.HasOne("Dominio.Entidades.Estudante", "Estudante")
                         .WithMany("Telefones")
-                        .HasForeignKey("EstudanteId");
+                        .HasForeignKey("EstudanteId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Estudante");
                 });

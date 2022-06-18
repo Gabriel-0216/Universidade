@@ -2,6 +2,7 @@ using System.Reflection;
 using Application.Commands.EstudanteCommands;
 using Application.Commands.EstudanteCommands.CadastrarEstudante;
 using Infraestrutura.Persistencia;
+using Infraestrutura.Repositorios.CursoRepositorio;
 using Infraestrutura.Repositorios.EstudanteRepositorio;
 using MediatR;
 
@@ -15,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IEstudanteRepositorio, EstudanteRepositorio>();
+builder.Services.AddScoped<ICursoRepositorio, CursoRepositorio>();
 builder.Services.AddMediatR(typeof(CriarEstudanteHandler).GetTypeInfo().Assembly);
 
 var app = builder.Build();

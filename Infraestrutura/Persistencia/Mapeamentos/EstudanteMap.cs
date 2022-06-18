@@ -32,10 +32,12 @@ public class EstudanteMap : IEntityTypeConfiguration<Estudante>
 
         builder
             .HasMany<Endereco>(p => p.Enderecos)
-            .WithOne(p=> p.Estudante);
+            .WithOne(p=> p.Estudante)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany<Telefone>(p => p.Telefones)
-            .WithOne(p => p.Estudante);
+            .WithOne(p => p.Estudante)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany<Contrato>(p => p.Contratos)
             .WithOne(p => p.Estudante)

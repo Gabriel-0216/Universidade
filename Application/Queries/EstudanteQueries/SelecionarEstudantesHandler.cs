@@ -26,7 +26,9 @@ public class SelecionarEstudantesHandler : IRequestHandler<SelecionarEstudantesQ
         var listaEstudantes = new List<SelecionarEstudanteResposta>();
         foreach (var estudante in estudantes)
         {
-            var estudanteMapeado = new SelecionarEstudanteResposta(estudante.Id, estudante.Nome, estudante.Sobrenome);
+            var estudanteMapeado = new SelecionarEstudanteResposta(estudante.Id, estudante.Nome,
+                estudante.Sobrenome, estudante.DataNascimento);
+            
             if(estudante.Telefones is not null)
                 foreach (var telefone in estudante.Telefones)
                     estudanteMapeado.AdicionaTelefone(new TelefoneDto(telefone.Ddd, telefone.Numero));
