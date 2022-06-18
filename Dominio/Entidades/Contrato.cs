@@ -53,21 +53,9 @@ namespace Dominio.Entidades
             }
             return listaParcelas;
         }
-        public decimal ValorTotalParcelas()
-        {
-            return Parcelas is null ? 0M : Parcelas.Where(item => true).Sum(item => item.Valor);
-        }
-        public bool ContratoQuitado()
-        {
-            return Parcelas is not null && Parcelas.All(item => item.Pago is not false);
-        }
-        public IList<Parcela> SelecionarParcelasAberto()
-        {
-            return Parcelas is null ? new List<Parcela>() : Parcelas.Where(p => p.Pago == false).ToList();
-        }
-        public IList<Parcela> SelecionarParcelasPagas()
-        {
-            return Parcelas is null ? new List<Parcela>() : Parcelas.Where(p => p.Pago == true).ToList();
-        }
+        public decimal ValorTotalParcelas() => Parcelas is null ? 0M : Parcelas.Where(item => true).Sum(item => item.Valor);
+        public bool ContratoQuitado() => Parcelas is not null && Parcelas.All(item => item.Pago is not false);
+        public IList<Parcela> SelecionarParcelasAberto() => Parcelas is null ? new List<Parcela>() : Parcelas.Where(p => p.Pago == false).ToList();
+        public IList<Parcela> SelecionarParcelasPagas() => Parcelas is null ? new List<Parcela>() : Parcelas.Where(p => p.Pago == true).ToList();
     }
 }
