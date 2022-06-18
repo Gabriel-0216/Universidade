@@ -1,0 +1,84 @@
+﻿@model WebApp.ViewModels.EstudanteViewModel.EstudanteVm
+
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<h1>Cadastrar</h1>
+
+<h4>EstudanteVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Cadastrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control input" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sobrenome" class="control-label"></label>
+                <input asp-for="Sobrenome" class="form-control input" />
+                <span asp-validation-for="Sobrenome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataNascimento" class="control-label"></label>
+                <input asp-for="DataNascimento" class="form-control input" />
+                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+            </div>
+             <a id="botaoAparecerCollapse" class="btn btn-primary" data-toggle="collapse" href="#collapseTelefone" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Cadastrar telefone
+            </a>
+            <div class="collapse" id="collapseTelefone">
+                  <div class="card card-body">
+                    <div class="form-group">
+                                    <input type="number" id="ddd" placeholder="DDD"/>
+                                    <input type="text" id="numeroTelefone" placeholder="numeroTelefone"/>
+                                   <a class="btn btn-primary" id="adicionarTelefone">Adicionar número</a><br />
+                                    <table id="example" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Column 1</th>
+                                                <th>Column 2</th>
+                           
+                                            </tr>
+                                        </thead>   
+                                    </table>
+                        </div>  
+                    </div>
+                </div>
+       
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retornar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    $(document).ready(function() {
+        var tabela = $('.table').dataTable();
+        
+        var t = $('#example').DataTable();
+        var counter = 1;
+ 
+        $('#adicionarTelefone').on('click', function () {
+            let ddd = $("#ddd").val();
+            let numero = $("#numeroTelefone").val();
+            t.row.add([ddd, numero]).draw(false);
+
+        });
+  
+        $("#botaoAparecerCollapse").on('click', function(){
+            $("#collapseTelefone").collapse('toggle');
+        })
+    });
+    </script>
+}

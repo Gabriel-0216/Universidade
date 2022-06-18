@@ -21,7 +21,8 @@ public class TelefoneMap : IEntityTypeConfiguration<Telefone>
 
         builder.Property(p => p.Numero)
             .HasColumnName("Numero")
-            .HasColumnType("varhcar")
+            .HasColumnType("varchar")
+            .HasMaxLength(10)
             .IsRequired();
         
         builder.Property(p => p.DataCriacao)

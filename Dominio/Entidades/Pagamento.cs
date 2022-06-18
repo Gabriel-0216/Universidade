@@ -36,11 +36,11 @@ namespace Dominio.Entidades
             var parcelasQuitadas = QuitarParcela(parcelas);
             if (!parcelasQuitadas) return false;
             
-            var liberacaoPagamento = new LiberacaoPagamento(motivoLiberacao, usuarioLiberacao, parcelas);
-            if (!liberacaoPagamento.IsValid) AddNotification("Motivo liberação pagamento", MensagensValidacoes.PropriedadeObrigatoria);
+            //var liberacaoPagamento = new LiberacaoPagamento(motivoLiberacao, usuarioLiberacao, parcelas);
+            //if (!liberacaoPagamento.IsValid) AddNotification("Motivo liberação pagamento", MensagensValidacoes.PropriedadeObrigatoria);
             ValorTotal = valorPagamento;
-            
-            return IsValid && parcelasQuitadas && liberacaoPagamento.IsValid;
+
+            return IsValid && parcelasQuitadas;
         }
 
         private void Validacoes(IList<Parcela> parcelas)

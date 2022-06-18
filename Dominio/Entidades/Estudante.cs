@@ -42,9 +42,8 @@ namespace Dominio.Entidades
         }
         public void RemoveEndereco(int enderecoId)
         {
-            if (Enderecos is null) return;
-            var endereco = Enderecos.FirstOrDefault(p => p.Id == enderecoId);
-            if (endereco is not null) Enderecos.Remove(endereco);
+            var endereco = Enderecos?.FirstOrDefault(p => p.Id == enderecoId);
+            if (endereco != null) Enderecos.Remove(endereco);
         }
         public void AdicionaTelefone(Telefone telefone)
         {

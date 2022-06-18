@@ -3,12 +3,21 @@ using Dominio.Entidades.ObjetosValor;
 using Infraestrutura.Persistencia.Mapeamentos;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Infraestrutura.Persistencia;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public DbSet<Contrato>? Contratos { get; set; }
+    public DbSet<Curso>? Cursos { get; set; }
+    public DbSet<Estudante>? Estudantes { get; set; }
+    //public DbSet<LiberacaoPagamento>? LiberacaoPagamentos { get; set; }
+    public DbSet<Pagamento>? Pagamentos { get; set; }
+    public DbSet<Parcela>? Parcelas { get; set; }
+    public DbSet<Endereco>? Enderecos { get; set; }
+    public DbSet<Telefone>? Telefones { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
    {
       base.OnConfiguring(optionsBuilder);
       optionsBuilder
@@ -18,6 +27,7 @@ public class ApplicationDbContext : IdentityDbContext
 
    protected override void OnModelCreating(ModelBuilder builder)
    {
+      base.OnModelCreating(builder);
       builder.ApplyConfiguration(new ContratoMap());
       builder.ApplyConfiguration(new CursoMap());
       builder.ApplyConfiguration(new EstudanteMap());
@@ -25,16 +35,6 @@ public class ApplicationDbContext : IdentityDbContext
       builder.ApplyConfiguration(new ParcelaMap());
       builder.ApplyConfiguration(new EnderecoMap());
       builder.ApplyConfiguration(new TelefoneMap());
-      base.OnModelCreating(builder);
    }
-
-   public DbSet<Contrato>? Contratos { get; set; }
-   public DbSet<Curso>? Cursos { get; set; }
-   public DbSet<Estudante>? Estudantes { get; set; }
-   //public DbSet<LiberacaoPagamento>? LiberacaoPagamentos { get; set; }
-   public DbSet<Pagamento>? Pagamentos { get; set; }
-   public DbSet<Parcela>? Parcelas { get; set; }
-   public DbSet<Endereco>? Enderecos { get; set; }
-   public DbSet<Telefone>? Telefones { get; set; } 
    
 }
