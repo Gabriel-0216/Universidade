@@ -11,14 +11,10 @@ namespace Dominio.Entidades
             Validacoes(parcelas);
             if (!IsValid) return false; 
 
-            decimal valorTotal = 0M;
-            foreach(var parcela in parcelas)
-            {
-                if(parcela.IsValid) valorTotal += parcela.Valor;
-            }
+            var valorTotal = parcelas.Where(parcela => parcela.IsValid).Sum(parcela => parcela.Valor);
             if(valorTotal != valorPagamento)
             {
-                AddNotification("Valor Total", "O valor do pagamento não quita o valor total das parcelas.");
+                AddNotification("Valor Total", "O valor do pagamento nï¿½o quita o valor total das parcelas.");
                 return false;
             }
             var parcelasQuitadas = QuitarParcela(parcelas);
@@ -33,7 +29,7 @@ namespace Dominio.Entidades
 
             if (valorPagamento >= valorTotal)
             {
-                AddNotification("Valor total", "O valor do pagamento é superior ou igual ao valor das parcelas.");
+                AddNotification("Valor total", "O valor do pagamento ï¿½ superior ou igual ao valor das parcelas.");
                 return false;
             }
 
@@ -41,7 +37,7 @@ namespace Dominio.Entidades
             if (!parcelasQuitadas) return false;
             
             var liberacaoPagamento = new LiberacaoPagamento(motivoLiberacao, usuarioLiberacao, parcelas);
-            if (!liberacaoPagamento.IsValid) AddNotification("Motivo liberação pagamento", MensagensValidacoes.PropriedadeObrigatoria);
+            if (!liberacaoPagamento.IsValid) AddNotification("Motivo liberaï¿½ï¿½o pagamento", MensagensValidacoes.PropriedadeObrigatoria);
             ValorTotal = valorPagamento;
             
             return IsValid && parcelasQuitadas && liberacaoPagamento.IsValid;
@@ -50,7 +46,7 @@ namespace Dominio.Entidades
         private void Validacoes(IList<Parcela> parcelas)
         {
             if (parcelas is null)
-                AddNotification("Parcelas", "Não é possível pagar as parcelas.");
+                AddNotification("Parcelas", "Nï¿½o ï¿½ possï¿½vel pagar as parcelas.");
         }
         private bool QuitarParcela(IList<Parcela> parcelas)
         {
@@ -58,12 +54,12 @@ namespace Dominio.Entidades
             {
                 if (!parcela.IsValid)
                 {
-                    AddNotification("Parcela inválida", "Não pode quitar uma parcela inválida.");
+                    AddNotification("Parcela invï¿½lida", "Nï¿½o pode quitar uma parcela invï¿½lida.");
                     return false;
                 }
                 if (!this.IsValid)
                 {
-                    AddNotification("Pagamento inválido", "Não pode adicionar um pagamento inválido a uma parcela.");
+                    AddNotification("Pagamento invï¿½lido", "Nï¿½o pode adicionar um pagamento invï¿½lido a uma parcela.");
                     return false;
                 }
                 parcela.AdicionaPagamento(this);

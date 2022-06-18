@@ -46,40 +46,28 @@ namespace Dominio.Entidades
         {
             var listaParcelas = new List<Parcela>();
             var valorParcela = valorTotal / quantidadeParcelas;
-            for(int i=0; i<quantidadeParcelas; i++)
+            for(var i=0; i<quantidadeParcelas; i++)
             {
-                var parcela = new Parcela(i+1, this, valorParcela);
+                var parcela = new Parcela(i+1, this, valorParcela, DateTime.Now.AddMonths(i+1));
                 if(parcela.IsValid) listaParcelas.Add(parcela);
             }
             return listaParcelas;
         }
         public decimal ValorTotalParcelas()
         {
-            decimal valorTotal = 0M;
-            if (Parcelas is null) return 0M;
-
-            foreach(var item in Parcelas)
-                if (item is not null) valorTotal += item.Valor;
-
-            return valorTotal;
+            return Parcelas is null ? 0M : Parcelas.Where(item => true).Sum(item => item.Valor);
         }
         public bool ContratoQuitado()
         {
-            if (Parcelas is null) return false;
-            foreach (var item in Parcelas)
-                if (item.Pago is false) return false;
-
-            return true;
+            return Parcelas is not null && Parcelas.All(item => item.Pago is not false);
         }
         public IList<Parcela> SelecionarParcelasAberto()
         {
-            if (Parcelas is null) return new List<Parcela>();
-            return Parcelas.Where(p => p.Pago == false).ToList();
+            return Parcelas is null ? new List<Parcela>() : Parcelas.Where(p => p.Pago == false).ToList();
         }
         public IList<Parcela> SelecionarParcelasPagas()
         {
-            if (Parcelas is null) return new List<Parcela>();
-            return Parcelas.Where(p => p.Pago == true).ToList();
+            return Parcelas is null ? new List<Parcela>() : Parcelas.Where(p => p.Pago == true).ToList();
         }
     }
 }
