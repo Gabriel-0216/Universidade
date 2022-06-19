@@ -32,6 +32,23 @@ public class EstudanteRepositorio : IEstudanteRepositorio
         return Enumerable.Empty<Estudante>();
     }
 
+    public async Task<Estudante?> SelecionarEstudantePorId(int id, bool incluirEndereco = false, bool incluirTelefone = false,
+        bool incluirContrato = false, bool incluirCurso = false, bool tracking = false)
+    {
+        if (_dbContext.Estudantes is null) return null;
+        
+        IQueryable<Estudante> consulta = _dbContext.Estudantes;
+        if (incluirEndereco) consulta = consulta.Include(p => p.Enderecos);
+        if (incluirTelefone) consulta = consulta.Include(p => p.Telefones);
+        if (incluirContrato) consulta = consulta.Include(p => p.Contratos);
+        if (incluirCurso) consulta = consulta.Include(p => p.Cursos);
+        if (!tracking) consulta = consulta.AsNoTracking();
+
+        return await consulta.Where(p => p.Id == id).FirstOrDefaultAsync();
+
+
+    }
+
     public async Task<bool> Adicionar(Estudante entity)
     {
         if (!entity.IsValid) return false;

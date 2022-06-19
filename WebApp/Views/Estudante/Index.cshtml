@@ -64,13 +64,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DataNascimento)
             </td>
-            <td style="display: inline-block">
-                <a href="@Url.ActionLink("Cursos", "Estudante", new {id = item.Id})">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                </a>
+            <td>
                 <a href="@Url.ActionLink("Editar", "Estudante", new {id = item.Id})">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
+                <a href="@Url.ActionLink("Cursos", "Estudante", new {id = item.Id})">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </a>
+
                 <a href="@Url.ActionLink("Contratos", "Estudante", new {id = item.Id})">
                     <i class="fa-solid fa-file-contract"></i>
                 </a>

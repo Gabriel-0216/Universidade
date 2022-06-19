@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebApp.ViewModels.CursoViewModel;
 
 namespace WebApp.ViewModels.EstudanteViewModel;
 
@@ -21,6 +22,7 @@ public class EstudanteVm
     public DateTime DataNascimento { get; set; }
 
     public IList<TelefoneVm> Telefones { get; set; } = new List<TelefoneVm>();
+    public IList<CursoVm> Cursos { get; set; } = new List<CursoVm>();
 
     public EstudanteVm()
     {
