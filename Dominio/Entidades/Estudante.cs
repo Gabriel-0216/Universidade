@@ -58,5 +58,10 @@ namespace Dominio.Entidades
                 Telefones.Remove(telefone);
             }
         }
+
+        public void AdicionaCurso(Curso curso)
+        {
+            Cursos?.Add(curso);
+        }
     }
 }

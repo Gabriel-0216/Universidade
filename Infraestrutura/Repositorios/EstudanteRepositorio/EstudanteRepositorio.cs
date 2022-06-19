@@ -41,7 +41,7 @@ public class EstudanteRepositorio : IEstudanteRepositorio
         if (incluirEndereco) consulta = consulta.Include(p => p.Enderecos);
         if (incluirTelefone) consulta = consulta.Include(p => p.Telefones);
         if (incluirContrato) consulta = consulta.Include(p => p.Contratos);
-        if (incluirCurso) consulta = consulta.Include(p => p.Cursos);
+        if (incluirCurso) consulta = consulta.Include(p => p.Contratos)!.ThenInclude(p=> p.Curso);
         if (!tracking) consulta = consulta.AsNoTracking();
 
         return await consulta.Where(p => p.Id == id).FirstOrDefaultAsync();

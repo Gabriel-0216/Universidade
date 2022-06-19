@@ -46,8 +46,15 @@ public class SelecionarEstudantePorIdHandler : IRequestHandler<SelecionarEstudan
 
         if (estudante.Contratos is null) return estudanteResposta;
         foreach (var contrato in estudante.Contratos)
+        {
             estudanteResposta.AdicionaContrato(new ContratoDto(contrato.Id, contrato.DataCriacao,
                 contrato.DataAtualizacao, contrato.UsuarioEditor, contrato.Ativo, contrato.Quitado));
+            if(contrato.Curso is not null)
+                estudanteResposta.AdicionaCurso(new CursoDto(contrato.Curso.Id,
+                    contrato.Curso.Nome, contrato.Curso.Descricao, contrato.Curso.DuracaoMeses, contrato.Curso.ValorTotal));
+        }
+            
+        
             
         return estudanteResposta;
 

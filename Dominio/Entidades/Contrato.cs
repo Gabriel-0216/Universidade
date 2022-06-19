@@ -26,6 +26,7 @@ namespace Dominio.Entidades
                 return false;
             }
             Estudante = estudante;
+            estudante.AdicionaCurso(curso);
             Curso = curso;
             var parcelas = GerarParcelas(curso.ValorTotal, quantidadeParcelas);
             if(parcelas.Count <= 0)

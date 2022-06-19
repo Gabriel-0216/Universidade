@@ -42,9 +42,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("SelecionaPorId")]
-        public async Task<IActionResult> SelecionarEstudantePorId([FromHeader] int id)
+        public async Task<IActionResult> SelecionarEstudantePorId([FromHeader] int id, [FromHeader] bool incluirEndereco = false,
+            bool incluirTelefone = false, bool incluirContratos = false, bool incluirCursos = false)
         {
-            var consulta = new SelecionarEstudantePorIdQuery(id, true, true);
+            var consulta = new SelecionarEstudantePorIdQuery(id, incluirEndereco, incluirTelefone, incluirCursos, incluirContratos);
             var resultado = await _mediator.Send(consulta);
             return resultado.Sucesso ? Ok(resultado) : NoContent();
         }

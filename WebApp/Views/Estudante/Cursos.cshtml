@@ -31,24 +31,18 @@
         <table class="table">
             <thead>
             <tr>
-                <th>
-                    
-                </th>
-                <th>
-                    
-                </th>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Duração</th>
             </tr>
             </thead>
             <tbody>
           @foreach (var item in Model.Cursos)
           {
               <tr>
-                  <td>
-                      @Html.DisplayFor(model => item.Nome)
-                  </td>
-                  <td>
-                      @Html.DisplayFor(model => item.Descricao)
-                  </td>
+                  <td>@Html.DisplayFor(model => item.Id)</td>
+                  <td>@Html.DisplayFor(model => item.Nome)</td>
+                  <td>@Html.DisplayFor(model => item.DuracaoMeses)</td>
               </tr>
           }
             </tbody>
