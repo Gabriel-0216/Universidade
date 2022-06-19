@@ -30,7 +30,15 @@ namespace Dominio.Entidades
         private void Validacoes(Contrato contrato, decimal valor)
         {
             if(!contrato.IsValid) AddNotification("Contrato", "O contrato não é valido.");
-            if(valor < 0) AddNotification("Valor", "O valor da parcela não é valido.");
+            switch (valor)
+            {
+                case < 0:
+                    AddNotification("Valor", "O valor da parcela não pode ser negativo.");
+                    break;
+                case > 0 and <= 2:
+                    AddNotification("Valor", "O valor mínimo da parcela é R$ 2.00");
+                    break;
+            }
         }
 
         public void AdicionaPagamento(Pagamento pagamento)

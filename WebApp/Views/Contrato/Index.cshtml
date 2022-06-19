@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WebApp.ViewModels.ContratoViewModel.ContratoVm>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<h3>Filtro</h3>
+<form METHOD="get">
+    <div class="form-group">
+        <label class="form-control" for="pag">Quantidade de elementos:</label>
+        <input type="number" class="form-control" id="pag"/>
+    </div>
+    <div class="form-group">
+        <label class="form-check-label" for="apenasQuitados">Mostrar apenas contratos quitados</label>
+        <input type="checkbox" class="form-check-input" id="apenasQuitados"/>
+    </div>
+    <div class="form-group">
+        <label class="form-check-label" for="apenasAtivos">Mostrar apenas contratos ativos</label>
+        <input type="checkbox" class="form-check-input" id="apenasAtivos"/>
+    </div>
+    <a id="botaoFiltrar" href="#" class="btn btn-success">Filtrar</a>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quitado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataGeracao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataAtualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioAuditoria)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quitado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataGeracao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataAtualizacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioAuditoria)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $("#botaoFiltrar").on("click", function (){
+        let quitado = $("#apenasQuitados").is(":checked");
+        let ativo = $("#apenasAtivos").is(":checked");
+        let pag = $("#pag").val();
+        $("#botaoFiltrar").attr("href", window.location.origin + `/Contrato?quitados=${quitado}&ativos=${ativo}&pag=${pag}`); 
+        });
+    </script>
+}

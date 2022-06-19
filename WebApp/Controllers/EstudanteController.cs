@@ -3,8 +3,7 @@ using Application.Commands.EstudanteCommands.DeletarEstudante;
 using Application.Queries.EstudanteQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WebApp.ViewModels;
-using WebApp.ViewModels.CursoViewModel;
+using WebApp.Mapeamentos;
 using WebApp.ViewModels.EstudanteViewModel;
 
 namespace WebApp.Controllers
@@ -22,7 +21,7 @@ namespace WebApp.Controllers
         {
             var consulta = new SelecionarEstudantesQuery(true, false, 0, 25);
             var listaConsulta = await _mediator.Send(consulta);
-            var listaMapeada = MapearEstudantesVm(listaConsulta);
+            var listaMapeada = EstudanteMapper.MapearEstudantesVm(listaConsulta);
             return View(listaMapeada);
         }
 
@@ -83,7 +82,7 @@ namespace WebApp.Controllers
         {
             var consulta = new SelecionarEstudantePorIdQuery(id, true, true);
             var estudante = await _mediator.Send(consulta);
-            var estudanteMapeadoVm = MapearEstudanteVm(estudante);
+            var estudanteMapeadoVm = EstudanteMapper.MapearEstudanteVm(estudante);
             return View(estudanteMapeadoVm);
         }
 
@@ -92,7 +91,7 @@ namespace WebApp.Controllers
         {
             var consulta = new SelecionarEstudantePorIdQuery(id, false, false, true, false);
             var estudante = await _mediator.Send(consulta);
-            var estudanteMapeado = MapearEstudanteVm(estudante);
+            var estudanteMapeado = EstudanteMapper.MapearEstudanteVm(estudante);
             return View(estudanteMapeado);
         }
         [HttpGet]
@@ -100,44 +99,8 @@ namespace WebApp.Controllers
         {
             var consulta = new SelecionarEstudantePorIdQuery(id, false, false, false, true);
             var estudante = await _mediator.Send(consulta);
-            var estudanteMapeado = MapearEstudanteVm(estudante);
+            var estudanteMapeado = EstudanteMapper.MapearEstudanteVm(estudante);
             return View(estudanteMapeado);
-        }
-        private IList<EstudanteVm> MapearEstudantesVm(IList<SelecionarEstudanteResposta> estudantes)
-        {
-            var listaEstudantesViewModel = new List<EstudanteVm>();
-            foreach (var item in estudantes)
-            {
-                var estudante = new EstudanteVm()
-                {
-                    Id = item.Id,
-                    Nome = item.Nome,
-                    Sobrenome = item.Sobrenome,
-                    DataNascimento = item.DataNascimento
-                };
-                if(item.Telefones is not null)
-                    foreach (var telefone in item.Telefones)
-                        estudante.Telefones.Add(new TelefoneVm(telefone.Ddd, telefone.Numero));
-                    
-                listaEstudantesViewModel.Add(estudante);
-            }
-            return listaEstudantesViewModel;
-        }
-
-        private EstudanteVm MapearEstudanteVm(SelecionarEstudanteResposta estudante)
-        {
-            var estudanteVm =
-                new EstudanteVm(estudante.Id, estudante.Nome, estudante.Sobrenome, estudante.DataNascimento);
-
-            if (estudante.Telefones is not null)
-                foreach(var item in estudante.Telefones)
-                    estudanteVm.Telefones.Add(new TelefoneVm(item.Ddd, item.Numero));
-
-            if (estudante.Cursos is null) return estudanteVm;
-                foreach(var curso in estudante.Cursos)
-                    estudanteVm.Cursos.Add(new CursoVm(curso.Id, curso.Nome, curso.Descricao, curso.DuracaoMeses, curso.ValorTotal));
-                
-            return estudanteVm;
         }
     }
 }

@@ -36,9 +36,15 @@ public class CursoRepositorio : ICursoRepositorio
         return await _context.Cursos.Where(p => p.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Curso>> SelecionarCursos(int skip = 0, int take = 25)
+    public async Task<IList<Curso>> SelecionarCursos(int skip = 0, int take = 25)
     {
-        if (_context.Cursos is null) return Enumerable.Empty<Curso>();
+        if (_context.Cursos is null) return new List<Curso>();
         return await _context.Cursos.Skip(skip).Take(take).ToListAsync();
+    }
+
+    public async Task<IList<Curso>> SelecionarPorNome(string nome)
+    {
+        if (_context.Cursos is null) return new List<Curso>();
+        return await _context.Cursos.AsNoTracking().Where(p => p.Nome.Contains(nome)).ToListAsync();
     }
 }

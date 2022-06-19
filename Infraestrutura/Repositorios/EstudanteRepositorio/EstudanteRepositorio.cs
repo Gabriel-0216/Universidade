@@ -13,7 +13,7 @@ public class EstudanteRepositorio : IEstudanteRepositorio
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Estudante>> SelecionarTodos
+    public async Task<IList<Estudante>> SelecionarTodos
         (int skip = 0, int take = 25, bool incluirEndereco = false, bool incluirTelefone = false)
     {
         IQueryable<Estudante>? consulta = _dbContext.Estudantes;
@@ -21,15 +21,15 @@ public class EstudanteRepositorio : IEstudanteRepositorio
         if (incluirTelefone) consulta = consulta?.Include(p => p.Telefones);
         
         if(consulta is not null) return await consulta.AsNoTracking().Skip(skip).Take(take).ToListAsync();
-        return Enumerable.Empty<Estudante>();
+        return new List<Estudante>();
     }
 
-    public async Task<IEnumerable<Estudante>> SelecionaComContrato(bool apenasContratoAberto = false, int skip = 0, int take = 25)
+    public async Task<IList<Estudante>> SelecionaComContrato(bool apenasContratoAberto = false, int skip = 0, int take = 25)
     {
         IQueryable<Estudante>? consulta = _dbContext.Estudantes;
 
         if(consulta is not null) return await consulta.Skip(skip).Take(take).ToListAsync();
-        return Enumerable.Empty<Estudante>();
+        return new List<Estudante>();
     }
 
     public async Task<Estudante?> SelecionarEstudantePorId(int id, bool incluirEndereco = false, bool incluirTelefone = false,
@@ -47,6 +47,15 @@ public class EstudanteRepositorio : IEstudanteRepositorio
         return await consulta.Where(p => p.Id == id).FirstOrDefaultAsync();
 
 
+    }
+
+    public async Task<IList<Estudante>> SelecionarEstudantesPorNome(string nome)
+    {
+        if (_dbContext.Estudantes is null) return new List<Estudante>();
+        return await _dbContext.Estudantes
+            .Where(p => p.Nome.Contains(nome) ||
+                        p.Sobrenome.Contains(nome))
+            .ToListAsync();
     }
 
     public async Task<bool> Adicionar(Estudante entity)
