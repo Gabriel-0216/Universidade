@@ -16,9 +16,8 @@ public class SelecionarCursosHandler : IRequestHandler<SelecionarCursosQuery, IL
 
     public async Task<IList<SelecionarCursosResposta>> Handle(SelecionarCursosQuery request, CancellationToken cancellationToken)
     {
-        var cursos = await _cursoRepositorio.SelecionarCursos();
-        var enumerable = cursos as Curso[] ?? cursos.ToArray();
-        return enumerable.Any() ? MapearCursos(enumerable) : new List<SelecionarCursosResposta>();
+        var cursos = await _cursoRepositorio.SelecionarCursos(request.ComContrato, request.Skip, request.Take);
+        return cursos.Any() ? MapearCursos(cursos) : new List<SelecionarCursosResposta>();
     }
 
     private IList<SelecionarCursosResposta> MapearCursos(IEnumerable<Curso> cursos)

@@ -29,6 +29,19 @@
 <p>
     <a title="Novo cadastro" asp-action="Cadastrar"><i class="fa-solid fa-circle-plus"></i></a>
 </p>
+<form>
+     <div class="form-group">
+            <label class="form-control" for="pag">Quantidade de elementos:</label>
+            <input type="number" class="form-control" id="pag"/>
+        </div>
+    <div class="form-group">
+        <label class="form-check-label" for="contratosGerados">Apenas com contratos gerados</label>
+        <input type="checkbox" id="contratosGerados" class="form-check-input"/>
+    </div>
+    <div class="form-group">
+        <a id="botaoFiltrar" href="#" class="btn btn-success">Filtrar</a>
+    </div>
+</form>
 <table class="table">
     <thead>
     <tr>
@@ -90,4 +103,11 @@
 @section Scripts
 {
     <script src="js/Cursos/Index.js"></script>
+    <script>
+      $("#botaoFiltrar").on("click", function (){
+        let contratos = $("#contratosGerados").is(":checked");
+        let pag = $("#pag").val();
+        $("#botaoFiltrar").attr("href", window.location.origin + `/Curso?contratos=${contratos}&page=${pag}`); 
+        });
+    </script>
 }

@@ -27,7 +27,8 @@ public class CursoVm
         
     }
 
-    public CursoVm(int id, string nome, string descricao, int duracaoMeses, decimal valorTotal)
+    public CursoVm(int id, string nome, string descricao,
+        int duracaoMeses, decimal valorTotal)
     {
         Id = id;
         Nome = nome;

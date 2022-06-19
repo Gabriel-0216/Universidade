@@ -38,11 +38,16 @@ public class SelecionarEstudantePorIdHandler : IRequestHandler<SelecionarEstudan
             foreach(var telefone in estudante.Telefones)
                 estudanteResposta.AdicionaTelefone(new TelefoneDto(telefone.Ddd, telefone.Numero));
 
-        if (estudante.Cursos is null) return estudanteResposta;
+        if (estudante.Cursos is not null)
             foreach(var curso in estudante.Cursos)
                 estudanteResposta
                     .AdicionaCurso(new CursoDto(curso.Id, curso.Nome, curso.Descricao,
                                                 curso.DuracaoMeses, curso.ValorTotal));
+
+        if (estudante.Contratos is null) return estudanteResposta;
+        foreach (var contrato in estudante.Contratos)
+            estudanteResposta.AdicionaContrato(new ContratoDto(contrato.Id, contrato.DataCriacao,
+                contrato.DataAtualizacao, contrato.UsuarioEditor, contrato.Ativo, contrato.Quitado));
             
         return estudanteResposta;
 

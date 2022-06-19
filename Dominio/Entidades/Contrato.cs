@@ -50,6 +50,12 @@ namespace Dominio.Entidades
             {
                 var parcela = new Parcela(i+1, this, valorParcela, DateTime.Now.AddMonths(i+1));
                 if(parcela.IsValid) listaParcelas.Add(parcela);
+                else
+                {
+                    foreach(var item in parcela.Notifications)
+                        AddNotification("Parcela", $"{item.Message}");
+                    return listaParcelas;
+                }
             }
             return listaParcelas;
         }

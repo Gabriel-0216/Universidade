@@ -105,7 +105,7 @@ namespace Infraestrutura.Migrations
                         .HasColumnName("UsuarioAuditoria");
 
                     b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(5,2)")
+                        .HasColumnType("DECIMAL(19,4)")
                         .HasColumnName("ValorTotal");
 
                     b.HasKey("Id");
@@ -280,7 +280,7 @@ namespace Infraestrutura.Migrations
                         .HasColumnName("UsuarioAuditoria");
 
                     b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(5,2)")
+                        .HasColumnType("DECIMAL(19,4)")
                         .HasColumnName("ValorTotal");
 
                     b.HasKey("Id");
@@ -329,7 +329,7 @@ namespace Infraestrutura.Migrations
                         .HasColumnName("UsuarioAuditoria");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(5,2)")
+                        .HasColumnType("DECIMAL(19,4)")
                         .HasColumnName("Valor");
 
                     b.HasKey("Id");

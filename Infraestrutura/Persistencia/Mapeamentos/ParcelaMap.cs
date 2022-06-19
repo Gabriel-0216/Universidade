@@ -21,7 +21,7 @@ public class ParcelaMap : IEntityTypeConfiguration<Parcela>
 
         builder.Property(p => p.Valor)
             .IsRequired()
-            .HasColumnType("decimal(5,2)")
+            .HasColumnType("DECIMAL(19,4)")
             .HasColumnName("Valor");
 
         builder.Property(p => p.DataVencimento)
