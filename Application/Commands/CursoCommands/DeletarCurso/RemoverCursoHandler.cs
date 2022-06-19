@@ -1,7 +1,7 @@
 ﻿using Infraestrutura.Repositorios.CursoRepositorio;
 using MediatR;
 
-namespace Application.Commands.CursoCommands;
+namespace Application.Commands.CursoCommands.DeletarCurso;
 
 public class RemoverCursoHandler : IRequestHandler<RemoverCursoCommand, Response>
 {

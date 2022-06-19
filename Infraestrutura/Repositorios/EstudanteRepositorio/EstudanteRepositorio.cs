@@ -55,7 +55,11 @@ public class EstudanteRepositorio : IEstudanteRepositorio
 
     public async Task<Estudante?> SelecionarPorId(int id)
     {
-        if(_dbContext.Estudantes is not null) return await _dbContext.Estudantes.Where(p => p.Id == id).FirstOrDefaultAsync();
+        if(_dbContext.Estudantes is not null) 
+            return await _dbContext.Estudantes.Where(p => p.Id == id)
+            .Include(p=> p.Enderecos)
+            .Include(p=> p.Telefones)
+            .FirstOrDefaultAsync();
         return null;
     }
 }

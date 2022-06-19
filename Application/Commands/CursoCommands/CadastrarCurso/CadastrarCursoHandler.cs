@@ -2,7 +2,7 @@
 using Infraestrutura.Repositorios.CursoRepositorio;
 using MediatR;
 
-namespace Application.Commands.CursoCommands;
+namespace Application.Commands.CursoCommands.CadastrarCurso;
 
 public class CadastrarCursoHandler : IRequestHandler<CadastrarCursoCommand, CadastrarCursoResponse>
 {

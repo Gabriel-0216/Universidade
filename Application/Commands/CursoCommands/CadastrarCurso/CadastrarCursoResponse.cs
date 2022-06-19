@@ -1,4 +1,4 @@
-﻿namespace Application.Commands.CursoCommands;
+﻿namespace Application.Commands.CursoCommands.CadastrarCurso;
 
 public class CadastrarCursoResponse : Response
 {

@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Commands.CursoCommands;
+using Application.Commands.CursoCommands.CadastrarCurso;
+using Application.Commands.CursoCommands.DeletarCurso;
 using Application.Dtos;
 using Application.Queries.CursoQueries;
 using MediatR;

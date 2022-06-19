@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Commands.CursoCommands;
+namespace Application.Commands.CursoCommands.DeletarCurso;
 
 public class RemoverCursoCommand : IRequest<Response>
 {

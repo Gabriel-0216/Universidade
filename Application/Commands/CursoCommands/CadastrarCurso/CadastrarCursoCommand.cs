@@ -1,7 +1,7 @@
 ﻿using Application.Dtos;
 using MediatR;
 
-namespace Application.Commands.CursoCommands;
+namespace Application.Commands.CursoCommands.CadastrarCurso;
 
 public class CadastrarCursoCommand : IRequest<CadastrarCursoResponse>
 {

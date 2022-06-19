@@ -112,6 +112,10 @@ namespace WebApp.Controllers
         {
             var estudanteVm =
                 new EstudanteVm(estudante.Id, estudante.Nome, estudante.Sobrenome, estudante.DataNascimento);
+
+            if (estudante.Telefones is null) return estudanteVm;
+            foreach(var item in estudante.Telefones)
+                estudanteVm.Telefones.Add(new TelefoneVm(item.Ddd, item.Numero));
             return estudanteVm;
         }
     }
