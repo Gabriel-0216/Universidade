@@ -24,7 +24,7 @@ public class SelecionarCursosHandler : IRequestHandler<SelecionarCursosQuery, IL
     private IList<SelecionarCursosResposta> MapearCursos(IEnumerable<Curso> cursos)
     {
         return cursos.Select(item => new SelecionarCursosResposta
-                    (new CursoDto(item.Nome, item.Descricao, item.DuracaoMeses, item.ValorTotal), item.Id))
+                    (new CursoDto(item.Id, item.Nome, item.Descricao, item.DuracaoMeses, item.ValorTotal), item.Id))
                     .ToList();
     }
 }

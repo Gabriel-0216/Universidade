@@ -2,6 +2,7 @@
 
 public class CursoDto
 {
+    public int Id { get; set; }
     public string Nome { get; private set; } = string.Empty;
     public string Descricao { get; private set; } = string.Empty;
     public int DuracaoMeses { get; private set; }
@@ -12,8 +13,9 @@ public class CursoDto
         
     }
 
-    public CursoDto(string nome, string descricao, int duracaoMeses, decimal valorTotal)
+    public CursoDto(int id, string nome, string descricao, int duracaoMeses, decimal valorTotal)
     {
+        Id = id;
         Nome = nome;
         Descricao = descricao;
         DuracaoMeses = duracaoMeses;

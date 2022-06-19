@@ -24,7 +24,7 @@ namespace WebApi.Controllers
             return resultado.OperacaoSucesso() ? Ok(resultado) : BadRequest(resultado);
         }
 
-        [HttpGet]
+        [HttpGet("SelecionaTodos")]
         public async Task<IActionResult> SelecionarEstudantes([FromHeader] int skip = 0, int take = 25,
             bool incluirEndereco = false, bool incluirTelefone = false)
         {
@@ -41,7 +41,7 @@ namespace WebApi.Controllers
             return resultado.OperacaoSucesso() ? Ok(resultado) : BadRequest(resultado);
         }
 
-        [HttpGet]
+        [HttpGet("SelecionaPorId")]
         public async Task<IActionResult> SelecionarEstudantePorId([FromHeader] int id)
         {
             var consulta = new SelecionarEstudantePorIdQuery(id, true, true);

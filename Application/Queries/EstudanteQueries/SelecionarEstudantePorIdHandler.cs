@@ -16,7 +16,8 @@ public class SelecionarEstudantePorIdHandler : IRequestHandler<SelecionarEstudan
 
     public async Task<SelecionarEstudanteResposta> Handle(SelecionarEstudantePorIdQuery request, CancellationToken cancellationToken)
     {
-        var estudante = await _estudanteRepositorio.SelecionarPorId(request.Id);
+        var estudante = await _estudanteRepositorio.SelecionarEstudantePorId(request.Id, request.IncluirEndereco, request.IncluirTelefone,
+            request.IncluirContratos, request.IncluirCursos);
         if (estudante is null)
         {
             var resposta = new SelecionarEstudanteResposta();
@@ -33,11 +34,16 @@ public class SelecionarEstudantePorIdHandler : IRequestHandler<SelecionarEstudan
     {
         var estudanteResposta = new SelecionarEstudanteResposta(estudante.Id, estudante.Nome, estudante.Sobrenome,
             estudante.DataNascimento);
-        if (estudante.Telefones is null) return estudanteResposta;
-        
-        foreach(var telefone in estudante.Telefones)
-            estudanteResposta.AdicionaTelefone(new TelefoneDto(telefone.Ddd, telefone.Numero));
+        if (estudante.Telefones is not null) 
+            foreach(var telefone in estudante.Telefones)
+                estudanteResposta.AdicionaTelefone(new TelefoneDto(telefone.Ddd, telefone.Numero));
 
+        if (estudante.Cursos is null) return estudanteResposta;
+            foreach(var curso in estudante.Cursos)
+                estudanteResposta
+                    .AdicionaCurso(new CursoDto(curso.Id, curso.Nome, curso.Descricao,
+                                                curso.DuracaoMeses, curso.ValorTotal));
+            
         return estudanteResposta;
 
     }

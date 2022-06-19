@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Commands.CursoCommands;
+using Application.Commands.CursoCommands.CadastrarCurso;
+using Application.Commands.CursoCommands.DeletarCurso;
 using Application.Dtos;
 using Application.Queries.CursoQueries;
 using MediatR;
@@ -40,7 +37,7 @@ namespace WebApp.Controllers
             if (!ModelState.IsValid) return View(curso);
             
             var comando =
-                new CadastrarCursoCommand(new CursoDto(curso.Nome, curso.Descricao, curso.DuracaoMeses,
+                new CadastrarCursoCommand(new CursoDto(0, curso.Nome, curso.Descricao, curso.DuracaoMeses,
                     curso.ValorTotal));
             var resultado = await _mediator.Send(comando);
             if (resultado.OperacaoSucesso()) return RedirectToAction("Index");

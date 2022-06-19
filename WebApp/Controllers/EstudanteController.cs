@@ -4,6 +4,7 @@ using Application.Queries.EstudanteQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.ViewModels;
+using WebApp.ViewModels.CursoViewModel;
 using WebApp.ViewModels.EstudanteViewModel;
 
 namespace WebApp.Controllers
@@ -86,7 +87,22 @@ namespace WebApp.Controllers
             return View(estudanteMapeadoVm);
         }
 
-
+        [HttpGet]
+        public async Task<IActionResult> Cursos(int id)
+        {
+            var consulta = new SelecionarEstudantePorIdQuery(id, false, false, true, false);
+            var estudante = await _mediator.Send(consulta);
+            var estudanteMapeado = MapearEstudanteVm(estudante);
+            return View(estudanteMapeado);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Contratos(int id)
+        {
+            var consulta = new SelecionarEstudantePorIdQuery(id, false, false, false, true);
+            var estudante = await _mediator.Send(consulta);
+            var estudanteMapeado = MapearEstudanteVm(estudante);
+            return View(estudanteMapeado);
+        }
         private IList<EstudanteVm> MapearEstudantesVm(IList<SelecionarEstudanteResposta> estudantes)
         {
             var listaEstudantesViewModel = new List<EstudanteVm>();
@@ -112,6 +128,15 @@ namespace WebApp.Controllers
         {
             var estudanteVm =
                 new EstudanteVm(estudante.Id, estudante.Nome, estudante.Sobrenome, estudante.DataNascimento);
+
+            if (estudante.Telefones is not null)
+                foreach(var item in estudante.Telefones)
+                    estudanteVm.Telefones.Add(new TelefoneVm(item.Ddd, item.Numero));
+
+            if (estudante.Cursos is null) return estudanteVm;
+                foreach(var curso in estudante.Cursos)
+                    estudanteVm.Cursos.Add(new CursoVm(curso.Id, curso.Nome, curso.Descricao, curso.DuracaoMeses, curso.ValorTotal));
+                
             return estudanteVm;
         }
     }

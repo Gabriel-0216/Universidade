@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Commands.CursoCommands;
+using Application.Commands.CursoCommands.CadastrarCurso;
+using Application.Commands.CursoCommands.DeletarCurso;
 using Application.Queries.CursoQueries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers

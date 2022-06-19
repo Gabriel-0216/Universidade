@@ -3,11 +3,33 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    a{
+    text-decoration:none;
+    color:  black;
+    }
+    .botaoDeletar{
+    text-decoration: none;
+    color: red;
+    }
+    a:link { text-decoration: none; }
+    
+    
+    a:visited { text-decoration: none; }
+    
+    
+    a:hover { text-decoration: none; }
+    
+    
+    a:active { text-decoration: none; }
+    
+
+</style>
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Cadastrar">Create New</a>
+    <a title="Novo cadastro" asp-action="Cadastrar"><i class="fa-solid fa-circle-plus"></i></a>
 </p>
 <table class="table">
     <thead>
@@ -43,8 +65,19 @@
                 @Html.DisplayFor(modelItem => item.DataNascimento)
             </td>
             <td>
-                <button type="button" data-id="@item.Id" onclick="verificarRemover(@item.Id)" id="botaoDeletar" class="btn btn-danger">Deletar</button>
-                @Html.ActionLink("Editar", "Editar", new { id=item.Id}) |
+                <a href="@Url.ActionLink("Editar", "Estudante", new {id = item.Id})">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <a href="@Url.ActionLink("Cursos", "Estudante", new {id = item.Id})">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </a>
+
+                <a href="@Url.ActionLink("Contratos", "Estudante", new {id = item.Id})">
+                    <i class="fa-solid fa-file-contract"></i>
+                </a>
+                <a class="botaoDeletar" href="#" onclick="verificarRemover(@item.Id)">
+                    <i class="fa-solid fa-trash-can"></i>
+                </a>
             </td>
         </tr>
 }
