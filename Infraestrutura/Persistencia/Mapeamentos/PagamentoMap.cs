@@ -15,7 +15,7 @@ public class PagamentoMap : IEntityTypeConfiguration<Pagamento>
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(p => p.ValorTotal)
-            .HasColumnType("decimal(5,2)")
+            .HasColumnType("DECIMAL(19,4)")
             .HasColumnName("ValorTotal")
             .IsRequired();
 

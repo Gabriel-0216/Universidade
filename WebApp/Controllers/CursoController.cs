@@ -18,9 +18,9 @@ namespace WebApp.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool contratos = false, int page = 20)
         {
-            var consulta = new SelecionarCursosQuery();
+            var consulta = new SelecionarCursosQuery(contratos, 0, page);
             var resultado = await _mediator.Send(consulta);
             if (!resultado.Any()) return View();
 

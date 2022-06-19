@@ -1,5 +1,6 @@
 ﻿using Application.Queries.EstudanteQueries;
 using WebApp.ViewModels;
+using WebApp.ViewModels.ContratoViewModel;
 using WebApp.ViewModels.CursoViewModel;
 using WebApp.ViewModels.EstudanteViewModel;
 
@@ -37,9 +38,13 @@ public static class EstudanteMapper
             foreach(var item in estudante.Telefones)
                 estudanteVm.Telefones.Add(new TelefoneVm(item.Ddd, item.Numero));
 
-        if (estudante.Cursos is null) return estudanteVm;
-        foreach(var curso in estudante.Cursos)
-            estudanteVm.Cursos.Add(new CursoVm(curso.Id, curso.Nome, curso.Descricao, curso.DuracaoMeses, curso.ValorTotal));
+        if (estudante.Cursos is not null)
+            foreach(var curso in estudante.Cursos)
+                estudanteVm.Cursos.Add(new CursoVm(curso.Id, curso.Nome, curso.Descricao, curso.DuracaoMeses, curso.ValorTotal));
+
+        if (estudante.Contratos is null) return estudanteVm;
+            foreach(var contrato in estudante.Contratos)
+                estudanteVm.Contratos.Add(new ContratoVm(contrato.Id, contrato.Ativo, contrato.Quitado, contrato.DataGeracao, contrato.DataAtualizacao, contrato.UsuarioGerou));
                 
         return estudanteVm;
     }

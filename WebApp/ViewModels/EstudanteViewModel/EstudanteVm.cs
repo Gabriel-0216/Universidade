@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebApp.ViewModels.ContratoViewModel;
 using WebApp.ViewModels.CursoViewModel;
 
 namespace WebApp.ViewModels.EstudanteViewModel;
@@ -23,6 +24,8 @@ public class EstudanteVm
 
     public IList<TelefoneVm> Telefones { get; set; } = new List<TelefoneVm>();
     public IList<CursoVm> Cursos { get; set; } = new List<CursoVm>();
+
+    public IList<ContratoVm> Contratos { get; set; } = new List<ContratoVm>();
 
     public EstudanteVm()
     {

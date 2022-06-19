@@ -36,10 +36,13 @@ public class CursoRepositorio : ICursoRepositorio
         return await _context.Cursos.Where(p => p.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<IList<Curso>> SelecionarCursos(int skip = 0, int take = 25)
+    public async Task<IList<Curso>> SelecionarCursos(bool apenasContrato = false, int skip = 0, int take = 25)
     {
         if (_context.Cursos is null) return new List<Curso>();
-        return await _context.Cursos.Skip(skip).Take(take).ToListAsync();
+        IQueryable<Curso> consulta = _context.Cursos;
+        if (apenasContrato) consulta = consulta.Where(p => p.Contratos.Count > 0);
+        
+        return await consulta.Skip(skip).Take(take).ToListAsync();
     }
 
     public async Task<IList<Curso>> SelecionarPorNome(string nome)

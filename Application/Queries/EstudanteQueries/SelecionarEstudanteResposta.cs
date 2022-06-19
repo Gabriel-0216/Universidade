@@ -11,6 +11,7 @@ public class SelecionarEstudanteResposta : RespostaGenerica
     public IList<EnderecoDto>? Enderecos { get; set; }
     public IList<TelefoneDto>? Telefones { get; set; }
     public IList<CursoDto>? Cursos { get; set; }
+    public IList<ContratoDto>? Contratos { get; set; }
 
     public SelecionarEstudanteResposta(int id, string nome, string sobrenome, DateTime dataNascimento)
     {
@@ -41,5 +42,11 @@ public class SelecionarEstudanteResposta : RespostaGenerica
     {
         Cursos ??= new List<CursoDto>();
         Cursos.Add(curso);
+    }
+
+    public void AdicionaContrato(ContratoDto contrato)
+    {
+        Contratos ??= new List<ContratoDto>();
+        Contratos.Add(contrato);
     }
 }

@@ -6,6 +6,8 @@ public class SelecionarEstudantesQuery : IRequest<IList<SelecionarEstudanteRespo
 {
     public bool IncluirTelefone { get; set; } = false;
     public bool IncluirEnderecos { get; set; } = false;
+
+    public bool ApenasContrato { get; set; } = false;
     public int Skip { get; set; } = 0;
     public int Take { get; set; } = 25;
 
@@ -16,4 +18,19 @@ public class SelecionarEstudantesQuery : IRequest<IList<SelecionarEstudanteRespo
         Skip = skip;
         Take = take;
     }
+
+    public SelecionarEstudantesQuery()
+    {
+        
+    }
+
+    public SelecionarEstudantesQuery(bool apenasContrato, bool incluirTelefone, bool incluirEndereco, int skip, int take)
+    {
+        ApenasContrato = apenasContrato;
+        IncluirEnderecos = incluirEndereco;
+        IncluirTelefone = incluirTelefone;
+        Skip = skip;
+        Take = take;
+    }
+    
 }

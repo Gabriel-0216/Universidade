@@ -32,7 +32,7 @@ public class CursoMap : IEntityTypeConfiguration<Curso>
 
         builder.Property(p => p.ValorTotal)
             .IsRequired()
-            .HasColumnType("decimal(5,2)")
+            .HasColumnType("DECIMAL(19,4)")
             .HasColumnName("ValorTotal");
 
         builder.HasMany(p => p.Estudantes)
