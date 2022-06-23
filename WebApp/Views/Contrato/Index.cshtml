@@ -6,26 +6,31 @@
 
 <h1>Index</h1>
 <h3>Filtro</h3>
-<form METHOD="get">
-    <div class="form-group">
-        <label class="form-control" for="pag">Quantidade de elementos:</label>
-        <input type="number" class="form-control" id="pag"/>
+<div class="card">
+    <div class="card-body">
+        <form METHOD="get">
+            <div class="form-group">
+                <label class="form-control" for="pag">Quantidade de elementos:</label>
+                <input type="number" class="form-control" id="pag"/>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label" for="apenasQuitados">Mostrar apenas contratos quitados</label>
+                <input type="checkbox" class="form-check-input" id="apenasQuitados"/>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label" for="apenasAtivos">Mostrar apenas contratos ativos</label>
+                <input type="checkbox" class="form-check-input" id="apenasAtivos"/>
+            </div>
+            <a id="botaoFiltrar" href="#" class="btn btn-success">Filtrar</a>
+        </form>
     </div>
-    <div class="form-group">
-        <label class="form-check-label" for="apenasQuitados">Mostrar apenas contratos quitados</label>
-        <input type="checkbox" class="form-check-input" id="apenasQuitados"/>
-    </div>
-    <div class="form-group">
-        <label class="form-check-label" for="apenasAtivos">Mostrar apenas contratos ativos</label>
-        <input type="checkbox" class="form-check-input" id="apenasAtivos"/>
-    </div>
-    <a id="botaoFiltrar" href="#" class="btn btn-success">Filtrar</a>
-</form>
+</div>
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a @*asp-action="Cadastrar"*@>Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped table-bordered">
     <thead>
     <tr>
         <th>
@@ -71,9 +76,9 @@
                 @Html.DisplayFor(modelItem => item.UsuarioAuditoria)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a title="Mensalidades" href="@Url.ActionLink("Mensalidades", "Contrato", new {id = item.Id})">
+                    <i class="fa-solid fa-file-contract"></i>
+                </a>
             </td>
         </tr>
     }

@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Queries.ContratoQueries;
 using Application.Queries.CursoQueries;
+using Application.Queries.EstudanteQueries;
 using MediatR;
+using Negocios.Configuracoes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Negocios.Dtos;
+using Negocios.Regras;
 using WebApp.Mapeamentos;
-using WebApp.Models;
 using WebApp.ViewModels.ContratoViewModel;
-using WebApp.ViewModels.CursoViewModel;
 
 namespace WebApp.Controllers
 {
@@ -34,26 +33,60 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Cadastrar()
-        {
-            return View();
+        public async Task<IActionResult> GerarContrato(int estudanteId)
+        { //Colocar a geração de contrato via Woerker
+            //refatorar a busca de cursos
+            //ToDo LAYOUT DA TELA
+            var estudanteConsulta = new SelecionarEstudantePorIdQuery(estudanteId, false, false);
+            var estudante = await _mediator.Send(estudanteConsulta);
+            var model = new GerarContratoVm(estudanteId, EstudanteMapper.MapearEstudanteVm(estudante));
+            return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> GerarContrato(GerarContratoVm contratoVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("Erro", "Erro de validação");
+                return View(contratoVm);
+            }
+
+            var regraGeracaoContrato = new GerarContrato();
+            var enviado = regraGeracaoContrato.EnviarMensagem(new GeracaoContratoDto()
+            {
+                QtdeParcelas = contratoVm.QuantidadeParcelas, CursoId = contratoVm.CursoId,
+                EstudanteId = contratoVm.EstudanteId
+            });
+            return RedirectToAction("Index");
+        }
         [HttpPost]
         public async Task<JsonResult> SelecionarEstudantePorNome(string nome)
         {
             return Json(new { });
         }
-
-        [HttpPost]
-        public async Task<JsonResult> SelecionarCursoPorNome(string nome)
-        {
+        [HttpGet]
+        public async Task<JsonResult> SelecionarCursoPorNome(string? nome = "")
+        {//ToDo LAYOUT DA TELA
             var consulta = new SelecionarCursoPorNomeQuery(nome);
             var resposta = await _mediator.Send(consulta);
             if (!resposta.Any()) return Json(new {success = false, erro = "nenhum curso cadastrado."});
 
             var cursos = CursoMapper.MapearCursos(resposta);
-            return Json(new { });
+            return Json(new
+            {
+                data = cursos
+            });
+        }
+        [HttpGet]
+        public async Task<IActionResult> Mensalidades(int id)
+        {
+            var selecionarParcelasContrato = new SelecionarContratoPorIdRequest(id, true);
+            var resultadoOperacao = await _mediator.Send(selecionarParcelasContrato);
+            if (resultadoOperacao is null) return View(new ContratoVm());
+
+            var contratosMapeados = ContratoMapper.MapearContratosComParcela(resultadoOperacao);
+            return View(contratosMapeados);
         }
     }
 }

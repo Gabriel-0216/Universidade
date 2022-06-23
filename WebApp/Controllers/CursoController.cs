@@ -3,12 +3,13 @@ using Application.Commands.CursoCommands.DeletarCurso;
 using Application.Dtos;
 using Application.Queries.CursoQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Mapeamentos;
 using WebApp.ViewModels.CursoViewModel;
 
 namespace WebApp.Controllers
-{
+{    
     public class CursoController : Controller
     {
         private readonly IMediator _mediator;

@@ -10,4 +10,12 @@ public static class ContratoMapper
             new ContratoVm(item.ContratoId, item.Ativo, item.Quitado, item.DataGeracao, item.DataAtualizacao,
                 item.UsuarioAuditoria)).ToList();
     }
+
+    public static ContratoVm MapearContratosComParcela(SelecionarContratoResposta contrato)
+    {
+        return new ContratoVm(contrato.ContratoId, contrato.Ativo, contrato.Quitado, contrato.DataGeracao, contrato.DataAtualizacao,
+            contrato.UsuarioAuditoria, parcelas: contrato.Parcelas.Select(parcela => new ParcelaVm(parcela.Id, parcela.NumeroParcela, parcela.Valor, parcela.DataVencimento, parcela.DataCriacao, parcela.Pago)).ToList());
+        
+        
+    }
 }

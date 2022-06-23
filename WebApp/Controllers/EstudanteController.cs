@@ -2,12 +2,15 @@ using Application.Commands.EstudanteCommands.CadastrarEstudante;
 using Application.Commands.EstudanteCommands.DeletarEstudante;
 using Application.Queries.EstudanteQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Mapeamentos;
 using WebApp.ViewModels.EstudanteViewModel;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
+
     public class EstudanteController : Controller
     {
         private readonly IMediator _mediator;
