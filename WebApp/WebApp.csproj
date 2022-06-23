@@ -19,10 +19,12 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\js\Genericos\" />
+      <Folder Include="wwwroot\lib\jqueryui" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Negocios\Negocios.csproj" />
     </ItemGroup>
 
 </Project>

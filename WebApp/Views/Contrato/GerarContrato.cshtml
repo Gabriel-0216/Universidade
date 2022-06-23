@@ -1,0 +1,97 @@
+﻿@model WebApp.ViewModels.ContratoViewModel.GerarContratoVm
+
+@{
+    ViewData["Title"] = "GerarContrato";
+}
+
+<h1>GerarContrato</h1>
+
+<h4>GerarContratoVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="GerarContrato">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col">
+                    <label hidden asp-for="EstudanteId" class="control-label"></label>
+                    <input hidden asp-for="EstudanteId" value="@Model.Estudante.Id" class="form-control"/>
+                    <span  hidden asp-validation-for="EstudanteId" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <input disabled type="text" value=@Model.Estudante.Nome/>
+                    <input disabled type="text" value=@Model.Estudante.Sobrenome/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label hidden asp-for="CursoId" class="control-label"></label>
+                    <input hidden id="cursoId" asp-for="CursoId" class="form-control"/>
+                    <label  for="cursoSelecionado">O nome do curso aparecerá aqui:</label>
+                    <input id="cursoSelecionado" disabled type="text" value=""/>
+                    <span asp-validation-for="CursoId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantidadeParcelas" class="control-label"></label>
+                <input asp-for="QuantidadeParcelas" class="form-control" />
+                <span asp-validation-for="QuantidadeParcelas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <div class="card">
+            <div class="card-body">
+                <input id="txtNome" type="text" placeholder="Digite o nome do curso"/>
+                <input id="btFiltrar" type="button" class="btn btn-success" value="Filtrar"/>
+            </div>
+        </div>
+        <table id="tabelaCursos" style="width: 100%">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    $(document).ready(function () {
+        var table = $("#tabelaCursos").DataTable();
+        
+        
+        $("#btFiltrar").on("click", function (){
+        $("#tabelaCursos").DataTable().clear();
+
+        $("#tabelaCursos").DataTable().destroy();
+            console.log("filtra");
+            let inputNome = $("#txtNome").val();
+            console.log(window.location.origin + `/Contrato/SelecionarCursoPorNome?nome=${inputNome}`);
+           table = $('#tabelaCursos').DataTable({
+                       ajax: window.location.origin + `/Contrato/SelecionarCursoPorNome?nome=${inputNome}`,
+                       columns: [
+                           {data: "id"},
+                           {data: "nome"}
+                       ],  
+                   }); 
+        });
+        
+        $('#tabelaCursos tbody').on( 'click', 'td', function () {
+            let dados = table.row(this).data();
+            let idCursoSelecionado = dados.id;
+            let nomeCursoSelecionado = dados.nome
+            $("#cursoSelecionado").val(nomeCursoSelecionado);
+            $("#cursoId").val(idCursoSelecionado);   
+        } );
+    });
+    </script>
+}
