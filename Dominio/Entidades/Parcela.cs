@@ -7,11 +7,7 @@ namespace Dominio.Entidades
         public decimal Valor {get; private set; }
         public DateTime DataVencimento { get; private set; }
         public Pagamento? Pagamento { get; private set; }
-        public bool Pago
-        {
-            get { return Pagamento is not null; }
-            set { Pago = value; }
-        }
+        public bool Pago { get; private set; }
         //public LiberacaoPagamento? LiberacaoPagamento { get; set; }
 
         public Parcela()
@@ -43,7 +39,9 @@ namespace Dominio.Entidades
 
         public void AdicionaPagamento(Pagamento pagamento)
         {
-            if (pagamento is not null && pagamento.IsValid) Pagamento = pagamento;
+            if (!pagamento.IsValid) return;
+            Pagamento = pagamento;
+            Pago = true;
         }
 
     }

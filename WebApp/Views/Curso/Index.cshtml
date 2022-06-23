@@ -26,24 +26,29 @@
 </style>
 <h1>Index</h1>
 
-<p>
-    <a title="Novo cadastro" asp-action="Cadastrar"><i class="fa-solid fa-circle-plus"></i></a>
-</p>
-<form>
-     <div class="form-group">
-            <label class="form-control" for="pag">Quantidade de elementos:</label>
-            <input type="number" class="form-control" id="pag"/>
-        </div>
-    <div class="form-group">
-        <label class="form-check-label" for="contratosGerados">Apenas com contratos gerados</label>
-        <input type="checkbox" id="contratosGerados" class="form-check-input"/>
+<div class="card">
+    <div class="card-body">
+        <p>
+                    <a title="Novo cadastro" asp-action="Cadastrar"><i class="fa-solid fa-circle-plus"></i></a>
+                </p>
+        <form>
+            <div class="form-group">
+                <label class="form-control" for="pag">Quantidade de elementos:</label>
+                <input type="number" class="form-control" id="pag"/>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label" for="contratosGerados">Apenas com contratos gerados</label>
+                <input type="checkbox" id="contratosGerados" class="form-check-input"/>
+            </div>
+            <div class="form-group">
+                <a id="botaoFiltrar" href="#" class="btn btn-success">Filtrar</a>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <a id="botaoFiltrar" href="#" class="btn btn-success">Filtrar</a>
-    </div>
-</form>
-<table class="table">
-    <thead>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Id)

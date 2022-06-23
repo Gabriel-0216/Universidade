@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Queries.ContratoQueries;
 using Application.Queries.CursoQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Mapeamentos;
-using WebApp.Models;
 using WebApp.ViewModels.ContratoViewModel;
-using WebApp.ViewModels.CursoViewModel;
 
 namespace WebApp.Controllers
 {
@@ -33,18 +27,16 @@ namespace WebApp.Controllers
             return View(contratosMapeados);
         }
 
-        [HttpGet]
-        public IActionResult Cadastrar()
-        {
-            return View();
-        }
-
+        // [HttpGet]
+        // public IActionResult Cadastrar()
+        // {
+        //     return View();
+        // }
         [HttpPost]
         public async Task<JsonResult> SelecionarEstudantePorNome(string nome)
         {
             return Json(new { });
         }
-
         [HttpPost]
         public async Task<JsonResult> SelecionarCursoPorNome(string nome)
         {
@@ -54,6 +46,16 @@ namespace WebApp.Controllers
 
             var cursos = CursoMapper.MapearCursos(resposta);
             return Json(new { });
+        }
+        [HttpGet]
+        public async Task<IActionResult> Mensalidades(int id)
+        {
+            var selecionarParcelasContrato = new SelecionarContratoPorIdRequest(id, true);
+            var resultadoOperacao = await _mediator.Send(selecionarParcelasContrato);
+            if (resultadoOperacao is null) return View(new ContratoVm());
+
+            var contratosMapeados = ContratoMapper.MapearContratosComParcela(resultadoOperacao);
+            return View(contratosMapeados);
         }
     }
 }

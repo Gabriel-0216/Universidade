@@ -44,6 +44,17 @@ public class ContratoVm
         DataAtualizacao = dataAtualizacao;
         UsuarioAuditoria = usuarioAuditoria;
     }
+    public ContratoVm(int id, bool ativo, bool quitado, DateTime dataGeracao,
+        DateTime dataAtualizacao, string usuarioAuditoria, IList<ParcelaVm> parcelas)
+    {
+        Id = id;
+        Ativo = ativo;
+        Quitado = quitado;
+        DataGeracao = dataGeracao;
+        DataAtualizacao = dataAtualizacao;
+        UsuarioAuditoria = usuarioAuditoria;
+        Parcelas = parcelas;
+    }
 
     public ContratoVm(EstudanteVm estudante, CursoVm curso, int quantidadeParcelas)
     {

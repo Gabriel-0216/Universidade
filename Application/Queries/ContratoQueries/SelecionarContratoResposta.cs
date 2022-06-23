@@ -31,5 +31,7 @@ public class SelecionarContratoResposta
         Ativo = ativo;
         Quitado = quitado;
     }
-    
+
+    public void AdicionarParcela(ParcelaDto parcela) => Parcelas.Add(parcela);
+
 }
