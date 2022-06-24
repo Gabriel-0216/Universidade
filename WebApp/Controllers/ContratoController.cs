@@ -55,7 +55,8 @@ namespace WebApp.Controllers
             var regraGeracaoContrato = new GerarContrato();
             var enviado = regraGeracaoContrato.EnviarMensagem(new GeracaoContratoDto()
             {
-                QtdeParcelas = contratoVm.QuantidadeParcelas, CursoId = contratoVm.CursoId,
+                QuantidadeParcelas = contratoVm.QuantidadeParcelas,
+                CursoId = contratoVm.CursoId,
                 EstudanteId = contratoVm.EstudanteId
             });
             return RedirectToAction("Index");

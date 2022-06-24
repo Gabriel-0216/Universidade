@@ -21,6 +21,9 @@ public class Worker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
         var servidor = new ConnectionFactory()
             {HostName = "localhost", Port = 5672, UserName = "gnascimento", Password = "gnascimento"};
         var conexao = servidor.CreateConnection();
@@ -45,7 +48,7 @@ public class Worker : BackgroundService
                     var corpo = ea.Body.ToArray();
                     var mensagem = Encoding.UTF8.GetString(corpo);
                     var objetoSerializado = JsonConvert.DeserializeObject<GerarContratoCommand>(mensagem);
-                    var enviar = await _mediator.Send(objetoSerializado);
+                    var enviar = await mediator.Send(objetoSerializado);
                 };
 
                 while (!stoppingToken.IsCancellationRequested)
